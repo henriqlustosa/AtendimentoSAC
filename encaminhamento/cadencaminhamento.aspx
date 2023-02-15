@@ -112,10 +112,27 @@
                     <asp:TextBox ID="txbOb" runat="server" class="form-control" TextMode="MultiLine" Text="Retorno solicitado pelo médico para: __/__/____&#10;Agendamento Laboratório para__/__/____&#10;Outras:" Rows="6" Columns="10" Width="500px"></asp:TextBox>
                 </div>
                 </div>
-                
+                <div class ="x_panel">
+                      <div class="x_title">
+                            <h2>
+                            Informações dos Exames
+                         <asp:Label ID="Label3" runat="server" Text="" Style="color: Black"></asp:Label></h2>
+                    <div class="clearfix">
+                </div>
+                </div>
+                  <div class="w-30 p-3">
+           
+                      <div>
+                          <div class="col-xs-9 col-xs-9 col-xs-12">
+                        <asp:CheckBoxList ID="cblExame"  CellSpacing ="40" RepeatColumns="4" runat="server">
+                          
+                        </asp:CheckBoxList>
+                    </div>
+                </div>
             </div>
+
         </div>
-    </div>
+    
     <div class="x_panel">
         <div class="x_title">
             <h2>

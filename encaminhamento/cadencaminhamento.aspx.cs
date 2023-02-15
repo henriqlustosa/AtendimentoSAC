@@ -28,6 +28,10 @@ public partial class publico_cadencaminhamento : System.Web.UI.Page
             ddlEspecialidade.DataTextField = "descricao_espec";
             ddlEspecialidade.DataValueField = "cod_especialidade";
             ddlEspecialidade.DataBind();
+            cblExame.DataSource = ExameDAO.listaExame();
+            cblExame.DataTextField = "descricao_exame";
+            cblExame.DataValueField = "cod_exame";
+            cblExame.DataBind();
         }
     }
 
@@ -75,7 +79,13 @@ public partial class publico_cadencaminhamento : System.Web.UI.Page
 
     protected void btnGravar_Click(object sender, EventArgs e)
     {
+        int _cod_pedido = 0;
+        List<Exame> exames = new List<Exame>();
+        
+       
+
         string _exames_solicitados = "";
+
         for (int i = 0; i < cblExames.Items.Count; i++)
         {
             if (cblExames.Items[i].Selected == true)// getting selected value from CheckBox List  
@@ -87,6 +97,8 @@ public partial class publico_cadencaminhamento : System.Web.UI.Page
         {
             _exames_solicitados = _exames_solicitados.Substring(0, _exames_solicitados.Length - 2); // Remove Last "," from the string .  
         }
+
+
 
         Pedido p = new Pedido();
         p.prontuario = Convert.ToInt32(txbProntuario.Text);
@@ -100,8 +112,21 @@ public partial class publico_cadencaminhamento : System.Web.UI.Page
         p.solicitante = txbprofissional.Text.ToUpper();
         p.usuario = System.Web.HttpContext.Current.User.Identity.Name.ToUpper();
 
-        string mensagem = PedidoDAO.GravaPedidoConsulta(p.prontuario,p.nome_paciente, p.data_pedido, p.cod_especialidade, p.exames_solicitados, p.outras_informacoes, p.solicitante, p.usuario);
-                
+         _cod_pedido = PedidoDAO.GravaPedidoConsulta(p.prontuario,p.nome_paciente, p.data_pedido, p.cod_especialidade, p.exames_solicitados, p.outras_informacoes, p.solicitante, p.usuario);
+
+
+
+        for (int i = 0; i < cblExame.Items.Count - 1; i++)
+        {
+            if (cblExame.Items[i].Selected)
+            {
+                Exame exm = new Exame();
+                exm.descricao_exame = cblExame.Items[i].Text;
+                exm.cod_exame = int.Parse(cblExame.Items[i].Value);
+                exames.Add(exm);
+            }
+        }
+        ExameDAO.GravaExamesPorPedidos(exames,_cod_pedido);
         //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + mensagem + "');", true);
 
         System.Text.StringBuilder sb = new System.Text.StringBuilder();

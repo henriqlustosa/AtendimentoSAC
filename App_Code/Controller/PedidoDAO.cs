@@ -17,11 +17,12 @@ using System.Collections.Generic;
 /// </summary>
 public class PedidoDAO
 {
-    public static string GravaPedidoConsulta(int _prontuario, string _nome_paciente, DateTime _data_pedido, int _cod_espec, string _exames, string _outras_info, string _solicitante, string _usuario)
+    public static int GravaPedidoConsulta(int _prontuario, string _nome_paciente, DateTime _data_pedido, int _cod_espec, string _exames, string _outras_info, string _solicitante, string _usuario)
     {
         string mensagem = "";
         string _dtcadastro = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-
+        string _dtcadastro_bd = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
+        int _codPedido=0;
         using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
         {
             SqlCommand cmm = new SqlCommand();
@@ -66,8 +67,51 @@ public class PedidoDAO
                 catch (Exception ex1)
                 { }
             }
+
+
         }
-        return mensagem;
+        
+        using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
+        {
+            SqlCommand cmm = cnn.CreateCommand();
+
+
+            string sqlConsulta = "SELECT [cod_pedido]" +
+
+                              " FROM [pedido_consulta] " +
+                              " WHERE  [status] = 0" +
+                              " AND [data_cadastro] = '" + _dtcadastro_bd + "'";
+                            
+
+            cmm.CommandText = sqlConsulta;
+
+            try
+            {
+                cnn.Open();
+                SqlDataReader dr1 = cmm.ExecuteReader();
+
+                //char[] ponto = { '.', ' ' };
+                if  (dr1.Read())
+                {
+                    
+                    Pedido p = new Pedido();
+                    p.cod_pedido = dr1.GetInt32(0);
+                    _codPedido = p.cod_pedido;
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+            }
+
+
+        }
+
+
+        return _codPedido;
     }
 
     public static List<Pedido> getListaPedidoConsultaPendentePorRH(int _prontuario)
