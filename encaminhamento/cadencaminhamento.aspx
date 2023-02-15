@@ -2,14 +2,14 @@
     CodeFile="cadencaminhamento.aspx.cs" Inherits="publico_cadencaminhamento" Title="Call HSPM" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    
+
     <script src='<%= ResolveUrl("~/vendors/jquery/dist/jquery.js") %>'
         type="text/javascript"></script>
     <!-- iCheck -->
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet" />
-    
+
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("input").attr("autocomplete", "off");
 
             $('input').iCheck({
@@ -18,21 +18,20 @@
                 increaseArea: '20%' // optional
             });
 
-            $('.numeric').keyup(function() {
+            $('.numeric').keyup(function () {
                 $(this).val(this.value.replace(/\D/g, ''));
             });
         });
 
     </script>
-    
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="Server">
     <h3>
         <asp:Label ID="lbTitulo" runat="server" Text="Encaminhamento/Retorno"></asp:Label></h3>
     <div class="x_panel">
         <div class="x_title">
-            <h2>
-                Informações do Paciente
+            <h2>Informações do Paciente
                 <asp:Label ID="lbProntuario" runat="server" Text="" Style="color: Black"></asp:Label></h2>
             <div class="clearfix">
             </div>
@@ -65,8 +64,7 @@
     </div>
     <div class="x_panel">
         <div class="x_title">
-            <h2>
-                Informações do Pedido
+            <h2>Informações do Pedido
                 <asp:Label ID="Label1" runat="server" Text="" Style="color: Black"></asp:Label></h2>
             <div class="clearfix">
             </div>
@@ -77,17 +75,17 @@
                     <div class="col-md-4 col-sm-12 col-xs-12 form-group">
                         <label for="ex3">
                             Data do pedido</label>
-                        <asp:TextBox ID="txbDtPedido" runat="server" class="form-control" data-inputmask="'mask': '99/99/9999'"></asp:TextBox> 
+                        <asp:TextBox ID="txbDtPedido" runat="server" class="form-control" data-inputmask="'mask': '99/99/9999'"></asp:TextBox>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-8">
                         <asp:DropDownList ID="ddlEspecialidade" runat="server" class="form-control">
                         </asp:DropDownList>
                     </div>
                 </div>
-               <%-- 
+                <%-- 
                 <div class="w-30 p-4">
                     <div class="col-md-9 col-sm-9 col-xs-12">
                             <asp:RadioButtonList ID="rbExame" RepeatDirection="Horizontal" runat="server">
@@ -109,89 +107,85 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                    <asp:TextBox ID="txbOb" runat="server" class="form-control" TextMode="MultiLine" Text="Retorno solicitado pelo médico para: __/__/____&#10;Agendamento Laboratório para__/__/____&#10;Outras:" Rows="6" Columns="10" Width="500px"></asp:TextBox>
-                </div>
-                </div>
-                <div class ="x_panel">
-                      <div class="x_title">
-                            <h2>
-                            Informações dos Exames
-                         <asp:Label ID="Label3" runat="server" Text="" Style="color: Black"></asp:Label></h2>
-                    <div class="clearfix">
-                </div>
-                </div>
-                  <div class="w-30 p-3">
-           
-                      <div>
-                          <div class="col-xs-9 col-xs-9 col-xs-12">
-                        <asp:CheckBoxList ID="cblExame"  CellSpacing ="40" RepeatColumns="4" runat="server">
-                          
-                        </asp:CheckBoxList>
+                        <asp:TextBox ID="txbOb" runat="server" class="form-control" TextMode="MultiLine" Text="Retorno solicitado pelo médico para: __/__/____&#10;Agendamento Laboratório para__/__/____&#10;Outras:" Rows="6" Columns="10" Width="500px"></asp:TextBox>
                     </div>
                 </div>
-            </div>
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Informações dos Exames
+                         <asp:Label ID="Label3" runat="server" Text="" Style="color: Black"></asp:Label></h2>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+                    <div class="w-30 p-3">
 
-        </div>
-    
-    <div class="x_panel">
-        <div class="x_title">
-            <h2>
-                Informações do Solicitante
+                        <div>
+                            <div class="col-xs-9 col-xs-9 col-xs-12">
+                                <asp:CheckBoxList ID="cblExame" CellSpacing="40" RepeatColumns="4" runat="server">
+                                </asp:CheckBoxList>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Informações do Solicitante
                 <asp:Label ID="Label2" runat="server" Text="" Style="color: Black"></asp:Label></h2>
-            <div class="clearfix">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                <label>
-                    Médico/Profissional</label>
-                <asp:TextBox ID="txbprofissional" runat="server" class="form-control"></asp:TextBox>
-            </div>
-        </div>
-        <%-- <div class="row">
+                        <div class="clearfix">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                            <label>
+                                Médico/Profissional</label>
+                            <asp:TextBox ID="txbprofissional" runat="server" class="form-control"></asp:TextBox>
+                        </div>
+                    </div>
+                    <%-- <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12 form-group">
                 <label>
                     Conselho</label>
                 <input type="text" id="idConselho" class="form-control" placeholder="Conselho" />
             </div>
         </div>--%>
-    </div>
-    <div class="x_content">
-        <asp:Button ID="btnBravar" runat="server" Text="Gravar" class="btn btn-primary" OnClick="btnGravar_Click" />
-    </div>
-    
-    
-    
-    
-      <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true"
-                data-keyboard="false" data-backdrop="static">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">
-                                Cadastro</h5>
-                        </div>
-                        <div class="modal-body" align="center">
-                            <h2>Pedido Cadastrado.</h2>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" id="btnCloseModal" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+                <div class="x_content">
+                    <asp:Button ID="btnBravar" runat="server" Text="Gravar" class="btn btn-primary" OnClick="btnGravar_Click" />
+                </div>
+
+
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true"
+                    data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Cadastro</h5>
+                            </div>
+                            <div class="modal-body" align="center">
+                                <h2>Pedido Cadastrado.</h2>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="btnCloseModal" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-  
-  
-  <script type="text/javascript">
-      $(document).ready(function() {
-          $("#btnCloseModal").click(function() {
-            $(location).attr('href', 'cadencaminhamento.aspx');
-          });
-      });
-      
-  </script>
-<%--
+
+
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $("#btnCloseModal").click(function () {
+                            $(location).attr('href', 'cadencaminhamento.aspx');
+                        });
+                    });
+
+                </script>
+                <%--
     <script type="text/javascript">
         // uso no checkbox iCheck
         /* ifChecked    */
@@ -241,5 +235,4 @@
             }
         });
     </script>--%>
-    
 </asp:Content>

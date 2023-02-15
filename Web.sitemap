@@ -3,8 +3,7 @@
   <siteMapNode url="~/Default.aspx" title="Principal"  description="Página principal do web site">
 
     <siteMapNode url="" title="Administração" roles="Administradores" description="Administração do Site">
-      <siteMapNode url="~/Restrito/cargaMailling.aspx" title="Carga Consultas"  description="Carga das consultas para realização de ativos" />
-      <siteMapNode url="~/Restrito/CadastraStatusLigacao.aspx" title="Cadastra Status Ligação" description="Cadastro status de de ligações" />
+      
       <siteMapNode url="~/Restrito/UsuariosOnLine.aspx" title="Usuários Online" description="Usuários Online" />
 
       <siteMapNode url="~/Restrito/CadastroUsuario.aspx" title="Cadastro Usuário" description="Cadastro de novos usuários do sistema" />
@@ -25,17 +24,7 @@
     </siteMapNode>
 
 
-    <siteMapNode url="" title="Consultas" roles="Ativo" description="">
-      <siteMapNode url="~/administrativo/Principal.aspx" title="Ativos"  description="Lista de consultas para Ligar" />
-      <siteMapNode url="~/administrativo/ListaAtivos.aspx" title="1ª Tentativa" />
-      <siteMapNode url="~/administrativo/ListaAtivos2.aspx" title="2ª Tentativa" />
-      <siteMapNode url="~/administrativo/ListaAtivos3.aspx" title="3ª Tentativa" />
-      <siteMapNode url="~/Consultas/ConsultasRemarcar.aspx" title="Remarcar" />
-    </siteMapNode>
-
-    <siteMapNode url="~/administrativo/historico.aspx" title="Histórico" >
-
-    </siteMapNode>
+  
     
 
     <siteMapNode url="" title="Encaminhamento" roles="pós-consulta" description="">
@@ -46,10 +35,7 @@
       
     </siteMapNode>
 
-    <siteMapNode url="" title="Endocrinologia" roles="Ativo" description="">
-      <siteMapNode url="~/endocrino/ListaAtivosEquipe.aspx" title="1ª Tentativa" />
-      <siteMapNode url="~/endocrino/ListaAtivosEquipe2.aspx" title="2ª Tentativa" />
-    </siteMapNode>
+ 
 
     <siteMapNode url="" title="Meu Perfil" roles="Ativo, Administradores" description="Páginas relácionadas ao perfil de usuário" >
       <siteMapNode url="~/Profile/AlterarSenha.aspx" title="Alterar Senha" description="Alteração de senha do usuário" />

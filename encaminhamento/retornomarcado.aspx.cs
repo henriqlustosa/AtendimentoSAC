@@ -14,6 +14,7 @@ using System.Net;
 using System.IO;
 using Newtonsoft.Json;
 using System.Data.SqlClient;
+using System.Collections.Generic;
 
 public partial class encaminhamento_retornomarcado : System.Web.UI.Page
 {
@@ -21,6 +22,15 @@ public partial class encaminhamento_retornomarcado : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+           
+            cblExame.DataSource = ExameDAO.listaExame();
+            cblExame.DataTextField = "descricao_exame";
+            cblExame.DataValueField = "cod_exame";
+            cblExame.DataBind();
+
+
+            
+            
             Pedido pedido = new Pedido();
 
             int _idPedido = Convert.ToInt32(Request.QueryString["idpedido"]);
@@ -45,6 +55,19 @@ public partial class encaminhamento_retornomarcado : System.Web.UI.Page
             txbOutrasInformacoes.Text = pedido.outras_informacoes;
 
             btnGravar.Enabled = false;
+            List<Exame> exames_escolhidos = new List<Exame>();
+            exames_escolhidos = ExameDAO.ObterListaDeExamesEscolhidos(_idPedido);
+
+
+
+            foreach (Exame exame in exames_escolhidos)
+            {
+
+                cblExame.Items[exame.cod_exame].Selected = true;
+                
+            }
+
+
         }
     }
 

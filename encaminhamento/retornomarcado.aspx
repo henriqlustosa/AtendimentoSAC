@@ -7,15 +7,15 @@
         type="text/javascript"></script>
 
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("input").attr("autocomplete", "off");
 
-            $('.numeric').keyup(function() {
+            $('.numeric').keyup(function () {
                 $(this).val(this.value.replace(/\D/g, ''));
             });
 
             function validaEspecialidade() {
-                $(function() {
+                $(function () {
                     $('.valida').css("border", "1px solid red");
                 });
 
@@ -23,7 +23,7 @@
         });
 
         function validaCampo() {
-            $(function() {
+            $(function () {
                 $('.valida').css("border", "1px solid red");
             });
         }
@@ -34,8 +34,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="Server">
     <div class="x_panel">
         <div class="x_title">
-            <h2>
-                Encaminhamento/Retorno
+            <h2>Editar Cadastro
                 <asp:Label ID="lbProntuario" runat="server" Text="" Style="color: Black"></asp:Label></h2>
             <div class="clearfix">
             </div>
@@ -103,13 +102,30 @@
                     <asp:TextBox ID="txbOutrasInformacoes" runat="server" Enabled="false" class="form-control"
                         TextMode="MultiLine" Rows="5" required></asp:TextBox>
                 </div>
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Editar Informações dos Exames
+                         <asp:Label ID="Label4" runat="server" Text="" Style="color: Black"></asp:Label></h2>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+                    <div class="w-30 p-3">
+
+                        <div>
+                            <div class="col-xs-9 col-xs-9 col-xs-12">
+                                <asp:CheckBoxList ID="cblExame" CellSpacing="40" RepeatColumns="4" runat="server">
+                                </asp:CheckBoxList>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-    <div class="x_panel">
+    <!--div class="x_panel">
         <div class="x_title">
-            <h2>
-                Dados da Consulta Marcada
+            <h2>Dados da Consulta Marcada
                 <asp:Label ID="Label3" runat="server" Text="" Style="color: Black"></asp:Label></h2>
             <div class="clearfix">
             </div>
@@ -132,10 +148,10 @@
                         <asp:Label ID="lbMensagemConsulta" runat="server" Text="" ForeColor="Maroon"></asp:Label>
                     </div>
                 </div>
-                
-                
+
+
                 <div class="row">
-                     <div class="col-sm-2 form-group">
+                    <div class="col-sm-2 form-group">
                         <asp:Label ID="lbConMarcada" for="txbConMarcada" runat="server" Text="Consulta:"></asp:Label>
                         <asp:TextBox ID="txbConMarcada" runat="server" Enabled="false" class="form-control"></asp:TextBox>
                     </div>
@@ -143,7 +159,7 @@
                         <asp:Label ID="lbPront" for="txbProntMarcada" runat="server" Text="Prontuário:"></asp:Label>
                         <asp:TextBox ID="txbProntMarcada" runat="server" Enabled="false" class="form-control"></asp:TextBox>
                     </div>
-                    
+
                     <div class="col-sm-6 form-group">
                         <asp:Label ID="Label5" for="txbNPacienteMarcada" runat="server" Text="Nome Paciente:"></asp:Label>
                         <asp:TextBox ID="txbNPacienteMarcada" runat="server" Enabled="false" class="form-control valida"></asp:TextBox>
@@ -174,9 +190,16 @@
                         <asp:Button ID="btnGravar" class="btn btn-primary" runat="server" Text="Gravar" OnClick="btnGrava_Click" />
                     </div>
                 </div>
+
             </div>
+
+        </div>
+
+    <div-->
+    <div class="row">
+        <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+            <asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Gravar" OnClick="btnGrava_Click" />
         </div>
     </div>
-
 
 </asp:Content>

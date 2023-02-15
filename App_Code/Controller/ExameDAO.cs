@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
+using System.Xml.Linq;
 
 /// <summary>
 /// Summary description for ExameDAO
@@ -62,7 +63,7 @@ public class ExameDAO
         {
             SqlCommand cmm = cnn.CreateCommand();
             cmm.CommandText = "SELECT cod_exame, descricao_exame, status_exame " +
-                             " FROM [hspmAtendimento_Call].[dbo].[exame] " +
+                             " FROM [hspmAtendimento_Call_Homologacao].[dbo].[exame] " +
                              " ORDER BY cod_exame";
 
             try
@@ -87,5 +88,44 @@ public class ExameDAO
 
         }
         return listaEspec;
+    }
+
+    public static List<Exame> ObterListaDeExamesEscolhidos(int idPedido)
+    {
+        var listaEspec = new List<Exame>();
+        using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
+        {
+            SqlCommand cmm = cnn.CreateCommand();
+            cmm.CommandText = "SELECT e.cod_exame, descricao_exame " +
+                             " FROM[hspmAtendimento_Call_Homologacao].[dbo].[exame] e join[hspmAtendimento_Call_Homologacao].[dbo].[pedido_exame] pe on e.cod_exame = pe.cod_exame " +
+                             "  where cod_pedido = "+ idPedido;
+            
+                           
+                            
+
+
+            try
+            {
+                cnn.Open();
+
+                SqlDataReader dr1 = cmm.ExecuteReader();
+
+                while (dr1.Read())
+                {
+                    Exame exm = new Exame();
+                    exm.cod_exame = dr1.GetInt32(0);
+                    exm.descricao_exame = dr1.GetString(1);
+                 
+                    listaEspec.Add(exm);
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+            }
+
+        }
+        return listaEspec;
+
     }
 }
