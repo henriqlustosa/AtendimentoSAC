@@ -25,4 +25,5 @@ public class Pedido: Especialidade
     public string solicitante { get; set; }
     public int status_pedido { get; set; }
     public string usuario { get; set; }
+    public string lista_exames { get; set; }
 }

@@ -7,7 +7,7 @@
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
     <h3>
-                <asp:Label ID="lbTitulo" runat="server" Text="Pedidos de Consultas Pendentes"></asp:Label></h3>
+                <asp:Label ID="lbTitulo" runat="server" Text="Solicitações de Exames Cadastrados"></asp:Label></h3>
             
            
            <asp:GridView ID="GridView1" runat="server"  AutoGenerateColumns="False"
@@ -32,6 +32,8 @@
                     <asp:BoundField DataField="outras_informacoes" HeaderText="Outras Informações" SortExpression="outras_informacoes"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
                     <asp:BoundField DataField="solicitante" HeaderText="Solicitante" SortExpression="solicitante"
+                        ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
+                     <asp:BoundField DataField="lista_exames" HeaderText="Exames" SortExpression="solicitante"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
                     
                     

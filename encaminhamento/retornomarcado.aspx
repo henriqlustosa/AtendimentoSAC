@@ -99,7 +99,7 @@
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Label1" for="txbOutrasInformacoes" runat="server" Text="Outras Informações:"></asp:Label>
-                    <asp:TextBox ID="txbOutrasInformacoes" runat="server" Enabled="false" class="form-control"
+                    <asp:TextBox ID="txbOutrasInformacoes" runat="server" Enabled="true" class="form-control"
                         TextMode="MultiLine" Rows="5" required></asp:TextBox>
                 </div>
                 <div class="x_panel">
@@ -200,6 +200,34 @@
         <div class="col-md-2 col-sm-12 col-xs-12 form-group">
             <asp:Button ID="Button1" class="btn btn-primary" runat="server" Text="Gravar" OnClick="btnGrava_Click" />
         </div>
+        
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true"
+                    data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Cadastro</h5>
+                            </div>
+                            <div class="modal-body" align="center">
+                                <h2>Pedido Atualizado.</h2>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="btnCloseModal" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $("#btnCloseModal").click(function () {
+                            $(location).attr('href', 'pedidospendentes.aspx');
+                        });
+                    });
+
+                </script>
     </div>
 
 </asp:Content>

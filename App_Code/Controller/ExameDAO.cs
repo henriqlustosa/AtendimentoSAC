@@ -19,7 +19,7 @@ public class ExameDAO
         //
     }
 
-    public static void GravaExamesPorPedidos(List<Exame> exames, int _cod_pedido)
+    public static void AtualizaExamesPorPedidos(List<Exame> exames, int _cod_pedido)
     {
         using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
         {
@@ -31,19 +31,58 @@ public class ExameDAO
             try
             {
 
-                foreach (Exame exame in exames)
-                { 
-                cmm.CommandText = "Insert into pedido_exame (cod_exame, cod_pedido)"
-            + " values ('"
-                                + exame.cod_exame + "','"
-                                + _cod_pedido 
-                                + "');";
-                cmm.ExecuteNonQuery();
+                cmm.CommandText = "UPDATE pedido_exame" +
+                 " SET status = @status " +
+                 " WHERE  cod_pedido = " + _cod_pedido ;
+                cmm.Parameters.Add(new SqlParameter("@status", "I"));
 
-                
-                
-               
+                cmm.ExecuteNonQuery();
+                mt.Commit();
+                mt.Dispose();
+                cnn.Close();
+
+
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+
+                try
+                {
+                    mt.Rollback();
                 }
+                catch (Exception ex1)
+                { }
+            }
+        }
+
+
+        using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
+        {
+            string status = "A";
+            string _dtcadastro_bd = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
+            SqlCommand cmm = new SqlCommand();
+            cmm.Connection = cnn;
+            cnn.Open();
+            SqlTransaction mt = cnn.BeginTransaction();
+            cmm.Transaction = mt;
+            try
+            {
+
+                foreach (Exame exame in exames)
+                {
+                    cmm.CommandText = "Insert into pedido_exame (cod_exame, cod_pedido,data_cadastro,status)"
+                    + " values ('"
+                                + exame.cod_exame + "','"
+                                + _cod_pedido + "','"
+                                + _dtcadastro_bd + "','"
+                                + status
+                                + "');";
+                    cmm.ExecuteNonQuery();
+
+
+                }
+
                 mt.Commit();
                 mt.Dispose();
                 cnn.Close();
@@ -54,6 +93,58 @@ public class ExameDAO
                 mt.Rollback();
             }
         }
+
+    }
+
+    public static void GravaExamesPorPedidos(List<Exame> exames, int _cod_pedido)
+    {
+        using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
+        {
+            string status = "A";
+            string _dtcadastro_bd = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
+            SqlCommand cmm = new SqlCommand();
+            cmm.Connection = cnn;
+            cnn.Open();
+            SqlTransaction mt = cnn.BeginTransaction();
+            cmm.Transaction = mt;
+            try
+            {
+
+                foreach (Exame exame in exames)
+                {
+                    cmm.CommandText = "Insert into pedido_exame (cod_exame, cod_pedido,data_cadastro,status)"
+                    + " values ('"
+                                + exame.cod_exame + "','"
+                                + _cod_pedido + "','"
+                                + _dtcadastro_bd + "','"
+                                + status 
+                                + "');";
+                    cmm.ExecuteNonQuery();
+
+
+                }
+
+                mt.Commit();
+                mt.Dispose();
+                cnn.Close();
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.Message;
+                mt.Rollback();
+            }
+        }
+
+       
+
+
+
+
+
+
+
+
+
     }
 
     public static List<Exame> listaExame()

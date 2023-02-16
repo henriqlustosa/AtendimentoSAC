@@ -18,6 +18,7 @@ using System.Collections.Generic;
 
 public partial class encaminhamento_retornomarcado : System.Web.UI.Page
 {
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -139,7 +140,10 @@ public partial class encaminhamento_retornomarcado : System.Web.UI.Page
 
     protected void btnGrava_Click(object sender, EventArgs e)
     {
-        string msg = "";
+        int _idPedido = Convert.ToInt32(Request.QueryString["idpedido"]);
+
+
+        /*String msg = "";
         ConsultaSGH consulta = new ConsultaSGH();
 
         consulta.cd_consulta = Convert.ToInt32(txbConMarcada.Text);
@@ -152,8 +156,26 @@ public partial class encaminhamento_retornomarcado : System.Web.UI.Page
         msg = gravaConsultaMarcada(consulta.cd_consulta, consulta.cod_pedido, consulta.dt_consulta, consulta.nm_especialidade, consulta.nm_equipe, consulta.nm_profissional, System.Web.HttpContext.Current.User.Identity.Name.ToUpper());
 
         ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + msg + "');", true);
-        Response.Redirect("~/encaminhamento/pedidospendentesporrh.aspx");
-    
+        Response.Redirect("~/encaminhamento/pedidospendentesporrh.aspx");*/
+        List<Exame> exames = new List<Exame>();
+        for (int i = 0; i < cblExame.Items.Count - 1; i++)
+        {
+            if (cblExame.Items[i].Selected)
+            {
+                Exame exm = new Exame();
+                exm.descricao_exame = cblExame.Items[i].Text;
+                exm.cod_exame = int.Parse(cblExame.Items[i].Value);
+                exames.Add(exm);
+            }
+        }
+        ExameDAO.AtualizaExamesPorPedidos(exames, _idPedido);
+
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        sb.Append("$(document).ready(function(){");
+        sb.Append("$('#myModal').modal();");
+        sb.Append("});");
+        ScriptManager.RegisterStartupScript(Page, this.Page.GetType(), "clientscript", sb.ToString(), true);
+      //  Response.Redirect("~/encaminhamento/pedidospendentes.aspx"); 
     }
 
     public static void gravaLog(string descript_log, string origem, string usuario)
