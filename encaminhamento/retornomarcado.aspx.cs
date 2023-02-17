@@ -169,6 +169,7 @@ public partial class encaminhamento_retornomarcado : System.Web.UI.Page
             }
         }
         ExameDAO.AtualizaExamesPorPedidos(exames, _idPedido);
+        string msg = PedidoDAO.AtualizaPedido(txbOutrasInformacoes.Text , _idPedido);
 
         System.Text.StringBuilder sb = new System.Text.StringBuilder();
         sb.Append("$(document).ready(function(){");
@@ -178,7 +179,7 @@ public partial class encaminhamento_retornomarcado : System.Web.UI.Page
       //  Response.Redirect("~/encaminhamento/pedidospendentes.aspx"); 
     }
 
-    public static void gravaLog(string descript_log, string origem, string usuario)
+   /* public static void gravaLog(string descript_log, string origem, string usuario)
     {
 
         using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
@@ -264,7 +265,7 @@ public partial class encaminhamento_retornomarcado : System.Web.UI.Page
                 mt.Dispose();
                 cnn.Close();
 
-                gravaLog("INSERT: CONSULTA " + _cod_consulta+ " CÓDIGO PEDIDO " +_cod_pedido, "TABELA MARCADA", usuario);
+                gravaLog("INSERT: CONSULTA " + _cod_consulta + " CÓDIGO PEDIDO " +_cod_pedido, "TABELA MARCADA", usuario);
                 msg = "Cadastro realizado com sucesso!";
 
             }
@@ -282,5 +283,5 @@ public partial class encaminhamento_retornomarcado : System.Web.UI.Page
         }
 
         return msg;
-    }
+    }*/
 }

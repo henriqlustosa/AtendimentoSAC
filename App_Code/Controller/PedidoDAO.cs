@@ -1,18 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
 using System.Data.SqlClient;
 using System.Collections.Generic;
-using System.Web.UI.MobileControls;
-using Newtonsoft.Json.Linq;
+using System.Linq;
 
 /// <summary>
 /// Summary description for PedidoDAO
@@ -270,8 +261,8 @@ public class PedidoDAO
                 string error = ex.Message;
             }
         }
-       
-       string list = string.Join(", ", listaEspec.Select(c => c.descricao_exame.ToString()).ToArray<string>());
+
+        string list = string.Join(", ", listaEspec.Select(c => c.descricao_exame.ToString()).ToArray<string>());
 
         return list;
     }
@@ -327,4 +318,99 @@ public class PedidoDAO
         }
 
     }
+
+    public static string AtualizaPedido(string outras_informacoes, int _idPedido)
+    {
+        string msg = "";
+        string usuario = System.Web.HttpContext.Current.User.Identity.Name.ToUpper();
+        using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
+        {
+            SqlCommand cmm = new SqlCommand();
+            cmm.Connection = cnn;
+            cnn.Open();
+            SqlTransaction mt = cnn.BeginTransaction();
+            cmm.Transaction = mt;
+            
+            try
+            {
+
+
+
+              
+
+                // Atualiza tabela de pedido de consulta
+                cmm.CommandText = "UPDATE pedido_consulta" +
+                        " SET outras_informacoes = @outras_informacoes " +
+                        " WHERE  cod_pedido = @cod_ped";
+                cmm.Parameters.Add(new SqlParameter("@cod_ped", _idPedido));
+                cmm.Parameters.Add(new SqlParameter("@outras_informacoes", outras_informacoes));
+                cmm.ExecuteNonQuery();
+
+                mt.Commit();
+                mt.Dispose();
+                cnn.Close();
+
+               LogDAO.gravaLog("UPDATE: CÓDIGO PEDIDO " + _idPedido, "CAMPO OUTRAS_INFORMACOES",  usuario);
+                msg = "Cadastro realizado com sucesso!";
+
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+                msg = error;
+                try
+                {
+                    mt.Rollback();
+                }
+                catch (Exception ex1)
+                { }
+            }
+        }
+
+        return msg;
+    }
+    public static void gravaLog(string descript_log, string origem, string usuario)
+    {
+
+        using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
+        {
+            SqlCommand cmm = new SqlCommand();
+            cmm.Connection = cnn;
+            cnn.Open();
+            SqlTransaction mt = cnn.BeginTransaction();
+            cmm.Transaction = mt;
+
+            try
+            {
+
+                cmm.CommandText = "Insert into log (description_log, origem, usuario, dt_gravacao)" +
+                       "values (@description_log, @origem, @usuario, @dt_gravacao)";
+
+                cmm.Parameters.Add("@description_log", SqlDbType.VarChar).Value = descript_log;
+                cmm.Parameters.Add("@origem", SqlDbType.VarChar).Value = origem;
+                cmm.Parameters.Add("@usuario", SqlDbType.VarChar).Value = usuario;
+                cmm.Parameters.Add("@dt_gravacao", SqlDbType.DateTime).Value = DateTime.Now;
+
+
+                cmm.ExecuteNonQuery();
+
+                mt.Commit();
+                mt.Dispose();
+                cnn.Close();
+
+
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+                try
+                {
+                    mt.Rollback();
+                }
+                catch (Exception ex1)
+                { }
+            }
+        }
+    }
+
 }

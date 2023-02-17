@@ -189,7 +189,7 @@ public class ExameDAO
             SqlCommand cmm = cnn.CreateCommand();
             cmm.CommandText = "SELECT e.cod_exame, descricao_exame " +
                              " FROM[hspmAtendimento_Call_Homologacao].[dbo].[exame] e join[hspmAtendimento_Call_Homologacao].[dbo].[pedido_exame] pe on e.cod_exame = pe.cod_exame " +
-                             "  where cod_pedido = "+ idPedido;
+                             "  where status = 'A' and cod_pedido = "+ idPedido;
             
                            
                             
