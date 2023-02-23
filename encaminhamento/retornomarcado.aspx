@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="retornomarcado.aspx.cs" Inherits="encaminhamento_retornomarcado" Title="Call HSPM" %>
+    CodeFile="retornomarcado.aspx.cs" Inherits="encaminhamento_retornomarcado" Title="HSPM ATENDIMENTO" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 
@@ -223,7 +223,7 @@
                 <script type="text/javascript">
                     $(document).ready(function () {
                         $("#btnCloseModal").click(function () {
-                            $(location).attr('href', 'pedidospendentes.aspx');
+                            $(location).attr('href', 'cadencaminhamento.aspx');
                         });
                     });
 

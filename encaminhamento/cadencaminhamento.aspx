@@ -1,5 +1,5 @@
 <%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="cadencaminhamento.aspx.cs" Inherits="publico_cadencaminhamento" Title="Call HSPM" %>
+    CodeFile="cadencaminhamento.aspx.cs" Inherits="publico_cadencaminhamento" Title="HSPM ATENDIMENTO" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 
@@ -28,7 +28,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="Server">
     <h3>
-        <asp:Label ID="lbTitulo" runat="server" Text="Encaminhamento/Retorno"></asp:Label></h3>
+        <asp:Label ID="lbTitulo" runat="server" Text="Cadastro Solicitação de Exame"></asp:Label></h3>
     <div class="x_panel">
         <div class="x_title">
             <h2>Informações do Paciente

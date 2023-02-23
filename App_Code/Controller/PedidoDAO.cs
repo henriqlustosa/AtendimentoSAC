@@ -145,6 +145,7 @@ public class PedidoDAO
                     p.cod_pedido = dr1.GetInt32(0);
                     p.prontuario = dr1.GetInt32(1);
                     p.nome_paciente = dr1.GetString(2);
+                    p.lista_exames = obterListaDeExames(p.cod_pedido);
                     p.data_pedido = dr1.GetDateTime(3);
                     p.data_cadastro = dr1.GetDateTime(4);
                     p.cod_especialidade = dr1.GetInt32(5);
@@ -186,8 +187,7 @@ public class PedidoDAO
                               ",[solicitante]" +
                               ",[usuario]" +
                               " FROM [pedido_consulta] " +
-                              " WHERE  [status] = 0" +
-                              " ORDER BY data_pedido DESC";
+                              " ORDER BY data_cadastro DESC";
 
             cmm.CommandText = sqlConsulta;
 
@@ -234,7 +234,7 @@ public class PedidoDAO
         {
             SqlCommand cmm = cnn.CreateCommand();
             cmm.CommandText = "SELECT e.cod_exame, descricao_exame " +
-                             " FROM[hspmAtendimento_Call_Homologacao].[dbo].[exame] e join[hspmAtendimento_Call_Homologacao].[dbo].[pedido_exame] pe on e.cod_exame = pe.cod_exame " +
+                             " FROM[hspmAtendimento_Call].[dbo].[exame] e join[hspmAtendimento_Call].[dbo].[pedido_exame] pe on e.cod_exame = pe.cod_exame " +
                              "  where status = 'A' and cod_pedido = " + cod_pedido;
 
 
@@ -299,6 +299,7 @@ public class PedidoDAO
                 {
                     pedido.cod_pedido = dr1.GetInt32(0);
                     pedido.prontuario = dr1.GetInt32(1);
+
                     pedido.nome_paciente = dr1.GetString(2);
                     pedido.data_pedido = dr1.GetDateTime(3);
                     pedido.data_cadastro = dr1.GetDateTime(4);

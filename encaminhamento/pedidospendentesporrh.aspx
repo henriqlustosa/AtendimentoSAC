@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="pedidospendentesporrh.aspx.cs" Inherits="encaminhamento_pedidospendentesporrh" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="pedidospendentesporrh.aspx.cs" Inherits="encaminhamento_pedidospendentesporrh" Title="HSPM ATENDIMENTO" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
    <link href="../build/css/jquery.dataTable.css" rel="stylesheet" type="text/css" />
@@ -7,7 +7,7 @@
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
             <h3>
-                <asp:Label ID="lbTitulo" runat="server" Text="Consultas pendentes por RH"></asp:Label></h3>
+                <asp:Label ID="lbTitulo" runat="server" Text="Exames Solicitados por RH"></asp:Label></h3>
             <div class="x_content">
             
             <div class="row">
@@ -54,7 +54,8 @@
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
                     <asp:BoundField DataField="solicitante" HeaderText="Solicitante" SortExpression="solicitante"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
-                    
+                    <asp:BoundField DataField="lista_exames" HeaderText="Exames" SortExpression="solicitante"
+                        ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
                     
                     <asp:TemplateField HeaderStyle-CssClass="sorting_disabled">
                         <ItemTemplate>
