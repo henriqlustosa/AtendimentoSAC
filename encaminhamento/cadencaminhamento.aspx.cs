@@ -116,7 +116,7 @@ public partial class publico_cadencaminhamento : System.Web.UI.Page
 
 
 
-        for (int i = 0; i < cblExame.Items.Count - 1; i++)
+        for (int i = 0; i < cblExame.Items.Count ; i++)
         {
             if (cblExame.Items[i].Selected)
             {

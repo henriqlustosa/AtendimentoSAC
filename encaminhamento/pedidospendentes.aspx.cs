@@ -22,7 +22,7 @@ public partial class encaminhamento_pedidospendentes : System.Web.UI.Page
     protected void grdMain_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         int index;
-
+        
         if (e.CommandName.Equals("editRecord"))
         {
             index = Convert.ToInt32(e.CommandArgument);
@@ -32,6 +32,16 @@ public partial class encaminhamento_pedidospendentes : System.Web.UI.Page
             //string _status = row.Cells[7].Text;
 
             Response.Redirect("~/encaminhamento/retornomarcado.aspx?idpedido=" + _id_pedido +"");
+        }
+        if (e.CommandName.Equals("deleteRecord"))
+        {
+            index = Convert.ToInt32(e.CommandArgument);
+
+            int _id_pedido = Convert.ToInt32(GridView1.DataKeys[index].Value.ToString()); //id da consulta
+            GridViewRow row = GridView1.Rows[index];
+            //string _status = row.Cells[7].Text;
+
+            Response.Redirect("~/encaminhamento/pedidospendentes.aspx");
         }
     }
 }

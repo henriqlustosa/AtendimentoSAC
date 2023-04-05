@@ -45,6 +45,19 @@
                                     <i class="fa fa-pencil-square-o" title="Informação"></i> 
                                 </asp:LinkButton>
                             </div>
+                             </ItemTemplate>
+                         
+                    </asp:TemplateField>
+                     <asp:TemplateField HeaderStyle-CssClass="sorting_disabled">
+                        
+                          <ItemTemplate>
+                     
+                            <div class="form-inline">
+                                <asp:LinkButton ID="gvlnkDelete" CommandName="deleteRecord" CommandArgument='<%#((GridViewRow)Container).RowIndex%>'
+                                    CssClass="btn btn-danger" runat="server">
+                                    <i class="fa fa-trash" title="Excluir"></i> 
+                                </asp:LinkButton>
+                            </div>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
