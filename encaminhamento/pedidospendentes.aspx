@@ -54,7 +54,7 @@
                      
                             <div class="form-inline">
                                 <asp:LinkButton ID="gvlnkDelete" CommandName="deleteRecord" CommandArgument='<%#((GridViewRow)Container).RowIndex%>'
-                                    CssClass="btn btn-danger" runat="server">
+                                    CssClass="btn btn-danger" runat="server" OnClientClick="return confirmation();">
                                     <i class="fa fa-trash" title="Excluir"></i> 
                                 </asp:LinkButton>
                             </div>
@@ -92,6 +92,9 @@
                 });
 
             });
-         </script>
+            function confirmation() {
+                return confirm("Você realmente quer deletar registro?");
+            }
+        </script>
 </asp:Content>
 

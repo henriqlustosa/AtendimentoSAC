@@ -158,7 +158,7 @@ public partial class encaminhamento_retornomarcado : System.Web.UI.Page
         ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + msg + "');", true);
         Response.Redirect("~/encaminhamento/pedidospendentesporrh.aspx");*/
         List<Exame> exames = new List<Exame>();
-        for (int i = 0; i < cblExame.Items.Count - 1; i++)
+        for (int i = 0; i < cblExame.Items.Count ; i++)
         {
             if (cblExame.Items[i].Selected)
             {

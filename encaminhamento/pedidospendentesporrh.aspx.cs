@@ -33,6 +33,20 @@ public partial class encaminhamento_pedidospendentesporrh : System.Web.UI.Page
 
             Response.Redirect("~/encaminhamento/retornomarcado.aspx?idpedido=" + _id_pedido + "");
         }
+        if (e.CommandName.Equals("deleteRecord"))
+        {
+            index = Convert.ToInt32(e.CommandArgument);
+
+            int _id_pedido = Convert.ToInt32(GridView1.DataKeys[index].Value.ToString()); //id da consulta
+            GridViewRow row = GridView1.Rows[index];
+
+            PedidoDAO.deletePedidodeConsulta(_id_pedido);
+            Response.Redirect("~/encaminhamento/pedidospendentes.aspx");
+
+            //string _status = row.Cells[7].Text;
+
+
+        }
     }
 
     protected void btnPesquisar_OnClick(object sender, EventArgs e)

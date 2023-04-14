@@ -39,9 +39,13 @@ public partial class encaminhamento_pedidospendentes : System.Web.UI.Page
 
             int _id_pedido = Convert.ToInt32(GridView1.DataKeys[index].Value.ToString()); //id da consulta
             GridViewRow row = GridView1.Rows[index];
-            //string _status = row.Cells[7].Text;
-
+            
+            PedidoDAO.deletePedidodeConsulta(_id_pedido);
             Response.Redirect("~/encaminhamento/pedidospendentes.aspx");
+           
+            //string _status = row.Cells[7].Text;
+           
+            
         }
     }
 }

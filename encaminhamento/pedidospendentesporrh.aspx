@@ -66,7 +66,20 @@
                                 </asp:LinkButton>
                             </div>
                         </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderStyle-CssClass="sorting_disabled">
+                        
+                          <ItemTemplate>
+                     
+                            <div class="form-inline">
+                                <asp:LinkButton ID="gvlnkDelete" CommandName="deleteRecord" CommandArgument='<%#((GridViewRow)Container).RowIndex%>'
+                                    CssClass="btn btn-danger" runat="server" OnClientClick="return confirmation();">
+                                    <i class="fa fa-trash" title="Excluir"></i> 
+                                </asp:LinkButton>
+                            </div>
+                        </ItemTemplate>
                     </asp:TemplateField>
+                    
                 </Columns>
                 
                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
@@ -100,6 +113,9 @@
                 });
 
             });
-         </script>
+            function confirmation() {
+                return confirm("Você realmente quer deletar registro?");
+            }
+        </script>
 </asp:Content>
 

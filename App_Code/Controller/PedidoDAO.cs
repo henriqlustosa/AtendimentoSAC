@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 
 /// <summary>
 /// Summary description for PedidoDAO
@@ -58,7 +59,9 @@ public class PedidoDAO
                     mt.Rollback();
                 }
                 catch (Exception ex1)
-                { }
+                { 
+                    error = ex1.Message; 
+                }
             }
 
 
@@ -72,7 +75,7 @@ public class PedidoDAO
             string sqlConsulta = "SELECT [cod_pedido]" +
 
                               " FROM [pedido_consulta] " +
-                              " WHERE  [status] = 0" +
+                              " WHERE  [status] = 0 " +
                               " AND [data_cadastro] = '" + _dtcadastro_bd + "'";
                             
 
@@ -187,7 +190,7 @@ public class PedidoDAO
                               ",[solicitante]" +
                               ",[usuario]" +
                               " FROM [pedido_consulta] " +
-                              " ORDER BY cod_pedido DESC";
+                              " where status =0 ORDER BY cod_pedido DESC";
 
             cmm.CommandText = sqlConsulta;
 
@@ -370,6 +373,27 @@ public class PedidoDAO
 
         return msg;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static void gravaLog(string descript_log, string origem, string usuario)
     {
 
@@ -412,6 +436,59 @@ public class PedidoDAO
                 { }
             }
         }
+    }
+
+    public static void  deletePedidodeConsulta(int _idPedido)
+    {
+
+        string msg = "";
+        string usuario = System.Web.HttpContext.Current.User.Identity.Name.ToUpper();
+        int _status = 1;
+        using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
+        {
+            SqlCommand cmm = new SqlCommand();
+            cmm.Connection = cnn;
+            cnn.Open();
+            SqlTransaction mt = cnn.BeginTransaction();
+            cmm.Transaction = mt;
+
+            try
+            {
+
+
+
+
+
+                // Atualiza tabela de pedido de consulta
+                cmm.CommandText = "UPDATE pedido_consulta" +
+                        " SET status = @status " +
+                        " WHERE  cod_pedido = @cod_ped";
+                cmm.Parameters.Add(new SqlParameter("@cod_ped", _idPedido));
+                cmm.Parameters.Add(new SqlParameter("@status", _status));
+                cmm.ExecuteNonQuery();
+
+                mt.Commit();
+                mt.Dispose();
+                cnn.Close();
+
+                LogDAO.gravaLog("DELETE: CÓDIGO PEDIDO " + _idPedido, "CAMPO STATUS", usuario);
+                msg = "Cadastro realizado com sucesso!";
+
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+                msg = error;
+                try
+                {
+                    mt.Rollback();
+                }
+                catch (Exception ex1)
+                { }
+            }
+        }
+
+    
     }
 
 }
