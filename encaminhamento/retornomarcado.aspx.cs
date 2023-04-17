@@ -137,6 +137,33 @@ public partial class encaminhamento_retornomarcado : System.Web.UI.Page
         txbProfissionalMarcada.Text = "";
         btnGravar.Enabled = false;
     }
+    protected void btnArquivar_Click(object sender, EventArgs e)
+    {
+        int _idPedido = Convert.ToInt32(Request.QueryString["idpedido"]);
+        List<Exame> exames = new List<Exame>();
+        for (int i = 0; i < cblExame.Items.Count; i++)
+        {
+            if (cblExame.Items[i].Selected)
+            {
+                Exame exm = new Exame();
+                exm.descricao_exame = cblExame.Items[i].Text;
+                exm.cod_exame = int.Parse(cblExame.Items[i].Value);
+                exames.Add(exm);
+            }
+        }
+        ExameDAO.AtualizaExamesPorPedidos(exames, _idPedido);
+        string msg = PedidoDAO.AtualizaPedido(txbOutrasInformacoes.Text, _idPedido);
+
+
+
+        PedidoDAO.filePedidodeConsulta(_idPedido);
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        sb.Append("$(document).ready(function(){");
+        sb.Append("$('#modalArquivar').modal();");
+        sb.Append("});");
+        ScriptManager.RegisterStartupScript(Page, this.Page.GetType(), "clientscript", sb.ToString(), true);
+        //  Response.Redirect("~/encaminhamento/pedidospendentes.aspx"); 
+    }
 
     protected void btnGrava_Click(object sender, EventArgs e)
     {

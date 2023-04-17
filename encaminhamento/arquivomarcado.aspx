@@ -34,7 +34,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="Server">
     <div class="x_panel">
         <div class="x_title">
-            <h2>Editar Cadastro
+            <h2>Cadastro
                 <asp:Label ID="lbProntuario" runat="server" Text="" Style="color: Black"></asp:Label></h2>
             <div class="clearfix">
             </div>
@@ -104,7 +104,7 @@
                 </div>
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Editar Informações dos Exames
+                        <h2>Informações dos Exames
                          <asp:Label ID="Label4" runat="server" Text="" Style="color: Black" ></asp:Label></h2>
                         <div class="clearfix">
                         </div>
