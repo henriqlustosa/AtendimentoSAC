@@ -31,6 +31,8 @@
       <siteMapNode url="~/encaminhamento/cadencaminhamento.aspx" title="Cadastro Solicitação de Exame"  description="Cadastro de Pedido de Consulta" />
       <siteMapNode url="~/encaminhamento/pedidospendentes.aspx" title="Exames Solicitados"  description="Pedidos de Consulta Pendentes" />
       <siteMapNode url="~/encaminhamento/pedidospendentesporrh.aspx" title="Exames Solicitados Por RH"  description="Pedidos de Consulta Por RH" />
+		<siteMapNode url="~/encaminhamento/pedidosarquivados.aspx" title="Exames Arquivados"  description="Pedidos de Consulta Arquivados" />
+		
 
       
     </siteMapNode>

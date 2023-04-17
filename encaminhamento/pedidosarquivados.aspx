@@ -1,37 +1,16 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="pedidospendentesporrh.aspx.cs" Inherits="encaminhamento_pedidospendentesporrh" Title="HSPM ATENDIMENTO" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="pedidosarquivados.aspx.cs" Inherits="encaminhamento_pedidosarquivados" Title="HSPM ATENDIMENTO" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-   <link href="../build/css/jquery.dataTable.css" rel="stylesheet" type="text/css" />
+ <link href="../build/css/jquery.dataTable.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" Runat="Server">
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
-            <h3>
-                <asp:Label ID="lbTitulo" runat="server" Text="Exames Solicitados por RH"></asp:Label></h3>
-            <div class="x_content">
+    <h3>
+                <asp:Label ID="lbTitulo" runat="server" Text="Solicitações de Exames Arquivados"></asp:Label></h3>
             
-            <div class="row">
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="UsernameTextBox">
-                        Prontuário: <span class="required">*</span>
-                    </label>
-                    <div class="col-md-8">
-                        <asp:TextBox ID="txbProntuario" class="form-control" runat="server" AutoPostBack="true" />
-                        <asp:RequiredFieldValidator ID="UsernameRequiredValidator" runat="server" ControlToValidate="txbProntuario"
-                            ForeColor="red" Display="Static" ErrorMessage="Required" /><br />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-4 col-sm-4 col-xs-8 ">
-                        <asp:Button ID="btnPesquisar" Text="Pesquisar" runat="server" Enabled="true" class="btn btn-primary"
-                            OnClick="btnPesquisar_OnClick" />
-                    </div>
-                </div>
-            </div>
-            
-            </div>
            
-            <asp:GridView ID="GridView1" runat="server"  AutoGenerateColumns="False"
+           <asp:GridView ID="GridView1" runat="server"  AutoGenerateColumns="False"
                  DataKeyNames="cod_pedido" OnRowCommand="grdMain_RowCommand"
                 CellPadding="4" ForeColor="#333333" GridLines="Horizontal" BorderColor="#e0ddd1" Width="100%" >
                 <RowStyle BackColor="#f7f6f3" ForeColor="#333333" />
@@ -54,16 +33,17 @@
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
                     <asp:BoundField DataField="solicitante" HeaderText="Solicitante" SortExpression="solicitante"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
-                    <asp:BoundField DataField="lista_exames" HeaderText="Exames" SortExpression="solicitante"
+                     <asp:BoundField DataField="lista_exames" HeaderText="Exames" SortExpression="solicitante"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
-                        <asp:TemplateField HeaderStyle-CssClass="sorting_disabled">
+                    
+                     <asp:TemplateField HeaderStyle-CssClass="sorting_disabled">
                         
                           <ItemTemplate>
                      
                             <div class="form-inline">
-                                <asp:LinkButton ID="gvlnkFile" CommandName="fileRecord" CommandArgument='<%#((GridViewRow)Container).RowIndex%>'
-                                    CssClass="btn btn-success" runat="server" OnClientClick="return file();">
-                                    <i class="fa fa-file" title="Arquivar"></i> 
+                                <asp:LinkButton ID="gvlnkPrint" CommandName="printRecord" CommandArgument='<%#((GridViewRow)Container).RowIndex%>'
+                                    CssClass="btn btn-success" runat="server">
+                                    <i class="fa fa-print" title="Imprimir"></i> 
                                 </asp:LinkButton>
                             </div>
                         </ItemTemplate>
@@ -71,26 +51,16 @@
                     <asp:TemplateField HeaderStyle-CssClass="sorting_disabled">
                         <ItemTemplate>
                             <div class="form-inline">
-                                <asp:LinkButton ID="gvlnkEdit" CommandName="editRecord" CommandArgument='<%#((GridViewRow)Container).RowIndex%>'
+                                <asp:LinkButton ID="gvlnkView" CommandName="viewRecord" CommandArgument='<%#((GridViewRow)Container).RowIndex%>'
                                     CssClass="btn btn-info" runat="server">
-                                    <i class="fa fa-pencil-square-o" title="Informação"></i> 
+                                    <i class="fa fa-pencil-square-o" title="Visualizar"></i> 
                                 </asp:LinkButton>
                             </div>
-                        </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderStyle-CssClass="sorting_disabled">
-                        
-                          <ItemTemplate>
-                     
-                            <div class="form-inline">
-                                <asp:LinkButton ID="gvlnkDelete" CommandName="deleteRecord" CommandArgument='<%#((GridViewRow)Container).RowIndex%>'
-                                    CssClass="btn btn-danger" runat="server" OnClientClick="return confirmation();">
-                                    <i class="fa fa-trash" title="Excluir"></i> 
-                                </asp:LinkButton>
-                            </div>
-                        </ItemTemplate>
+                             </ItemTemplate>
+                         
                     </asp:TemplateField>
                     
+                   
                 </Columns>
                 
                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
@@ -99,7 +69,6 @@
                 <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
                 <EditRowStyle BackColor="#999999" />
             </asp:GridView>
-    
     
  
    
@@ -124,12 +93,7 @@
                 });
 
             });
-            function file() {
-                return confirm("Você realmente quer arquivar registro?");
-            }
-            function confirmation() {
-                return confirm("Você realmente quer deletar registro?");
-            }
+            
         </script>
 </asp:Content>
 

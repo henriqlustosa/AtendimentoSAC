@@ -36,7 +36,18 @@
                      <asp:BoundField DataField="lista_exames" HeaderText="Exames" SortExpression="solicitante"
                         ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs" />
                     
-                    
+                     <asp:TemplateField HeaderStyle-CssClass="sorting_disabled">
+                        
+                          <ItemTemplate>
+                     
+                            <div class="form-inline">
+                                <asp:LinkButton ID="gvlnkFile" CommandName="fileRecord" CommandArgument='<%#((GridViewRow)Container).RowIndex%>'
+                                    CssClass="btn btn-success" runat="server" OnClientClick="return file();">
+                                    <i class="fa fa-file" title="Arquivar"></i> 
+                                </asp:LinkButton>
+                            </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderStyle-CssClass="sorting_disabled">
                         <ItemTemplate>
                             <div class="form-inline">
@@ -60,6 +71,7 @@
                             </div>
                         </ItemTemplate>
                     </asp:TemplateField>
+                   
                 </Columns>
                 
                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
@@ -94,6 +106,9 @@
             });
             function confirmation() {
                 return confirm("Você realmente quer deletar registro?");
+            }
+            function file() {
+                return confirm("Você realmente quer arquivar registro?");
             }
         </script>
 </asp:Content>

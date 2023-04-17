@@ -11,11 +11,11 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-public partial class encaminhamento_pedidospendentes : System.Web.UI.Page
+public partial class encaminhamento_pedidosarquivados : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        GridView1.DataSource = PedidoDAO.getListaPedidoConsultaPendente();
+        GridView1.DataSource = PedidoDAO.getListaPedidoConsultaArquivados();
         GridView1.DataBind();
     }
 
@@ -23,7 +23,7 @@ public partial class encaminhamento_pedidospendentes : System.Web.UI.Page
     {
         int index;
         
-        if (e.CommandName.Equals("editRecord"))
+        if (e.CommandName.Equals("printRecord"))
         {
             index = Convert.ToInt32(e.CommandArgument);
 
@@ -31,35 +31,25 @@ public partial class encaminhamento_pedidospendentes : System.Web.UI.Page
             GridViewRow row = GridView1.Rows[index];
             //string _status = row.Cells[7].Text;
 
-            Response.Redirect("~/encaminhamento/retornomarcado.aspx?idpedido=" + _id_pedido +"");
+            // Response.Redirect("~/encaminhamento/pedidosarquivados.aspx" + _id_pedido);
+             Response.Redirect("~/encaminhamento/pedidosarquivados.aspx");
         }
-        if (e.CommandName.Equals("deleteRecord"))
+        if (e.CommandName.Equals("viewRecord"))
         {
             index = Convert.ToInt32(e.CommandArgument);
 
             int _id_pedido = Convert.ToInt32(GridView1.DataKeys[index].Value.ToString()); //id da consulta
             GridViewRow row = GridView1.Rows[index];
-            
-            PedidoDAO.deletePedidodeConsulta(_id_pedido);
-            Response.Redirect("~/encaminhamento/pedidospendentes.aspx");
+            //string _status = row.Cells[7].Text;
+
+            //Response.Redirect("~/encaminhamento/retornomarcado.aspx?idpedido=" + _id_pedido + "");
+
+            Response.Redirect("~/encaminhamento/arquivomarcado.aspx?idpedido=" + _id_pedido + "");
            
             //string _status = row.Cells[7].Text;
            
             
         }
-        if (e.CommandName.Equals("fileRecord"))
-        {
-            index = Convert.ToInt32(e.CommandArgument);
-
-            int _id_pedido = Convert.ToInt32(GridView1.DataKeys[index].Value.ToString()); //id da consulta
-            GridViewRow row = GridView1.Rows[index];
-
-            PedidoDAO.filePedidodeConsulta(_id_pedido);
-            Response.Redirect("~/encaminhamento/pedidospendentes.aspx");
-
-            //string _status = row.Cells[7].Text;
-
-
-        }
+       
     }
 }

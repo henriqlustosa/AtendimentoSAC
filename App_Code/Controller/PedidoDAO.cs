@@ -229,6 +229,64 @@ public class PedidoDAO
             return listaPedidos;
         }
     }
+    public static List<Pedido> getListaPedidoConsultaArquivados()
+    {
+        var listaPedidos = new List<Pedido>();
+        using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
+        {
+            SqlCommand cmm = cnn.CreateCommand();
+
+
+            string sqlConsulta = "SELECT [cod_pedido]" +
+                              ",[prontuario]" +
+                              ",[nome_paciente]" +
+                              ",[data_pedido]" +
+                              ",[data_cadastro]" +
+                              ",[cod_especialidade]" +
+                              ",[exames_solicitados]" +
+                              ",[outras_informacoes]" +
+                              ",[solicitante]" +
+                              ",[usuario]" +
+                              " FROM [pedido_consulta] " +
+                              " where status = 2 ORDER BY cod_pedido DESC";
+
+            cmm.CommandText = sqlConsulta;
+
+            try
+            {
+                cnn.Open();
+                SqlDataReader dr1 = cmm.ExecuteReader();
+
+                //char[] ponto = { '.', ' ' };
+                while (dr1.Read())
+                {
+                    Especialidade espec = new Especialidade();
+                    Pedido p = new Pedido();
+                    p.cod_pedido = dr1.GetInt32(0);
+                    p.lista_exames = obterListaDeExames(p.cod_pedido);
+                    p.prontuario = dr1.GetInt32(1);
+                    p.nome_paciente = dr1.GetString(2);
+                    p.data_pedido = dr1.GetDateTime(3);
+                    p.data_cadastro = dr1.GetDateTime(4);
+                    p.cod_especialidade = dr1.GetInt32(5);
+                    p.descricao_espec = EspecialidadeDAO.getEspecialidade(p.cod_especialidade);
+                    p.exames_solicitados = dr1.GetString(6);
+                    p.outras_informacoes = dr1.GetString(7);
+                    p.solicitante = dr1.GetString(8);
+                    p.usuario = dr1.GetString(9);
+
+                    listaPedidos.Add(p);
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+            }
+
+
+            return listaPedidos;
+        }
+    }
 
     private static string obterListaDeExames(int cod_pedido)
     {
@@ -237,7 +295,7 @@ public class PedidoDAO
         {
             SqlCommand cmm = cnn.CreateCommand();
             cmm.CommandText = "SELECT e.cod_exame, descricao_exame " +
-                             " FROM[hspmAtendimento_Call_Homologacao].[dbo].[exame] e join[hspmAtendimento_Call_Homologacao].[dbo].[pedido_exame] pe on e.cod_exame = pe.cod_exame " +
+                             " FROM[hspmAtendimento_Call].[dbo].[exame] e join[hspmAtendimento_Call].[dbo].[pedido_exame] pe on e.cod_exame = pe.cod_exame " +
                              "  where status = 'A' and cod_pedido = " + cod_pedido;
 
 
@@ -289,6 +347,7 @@ public class PedidoDAO
                               ",[outras_informacoes]" +
                               ",[solicitante]" +
                               ",[usuario]" +
+                              ",[status]" +
                               " FROM [pedido_consulta] " +
                               " WHERE  cod_pedido = " + _idPedido;
 
@@ -312,6 +371,7 @@ public class PedidoDAO
                     pedido.outras_informacoes = dr1.GetString(7);
                     pedido.solicitante = dr1.GetString(8);
                     pedido.usuario = dr1.GetString(9);
+                    pedido.status_pedido = dr1.GetInt32(10);
                 }
             }
             catch (Exception ex)
@@ -489,6 +549,58 @@ public class PedidoDAO
         }
 
     
+    }
+    public static void filePedidodeConsulta(int _idPedido)
+    {
+
+        string msg = "";
+        string usuario = System.Web.HttpContext.Current.User.Identity.Name.ToUpper();
+        int _status = 2;
+        using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["gtaConnectionString"].ToString()))
+        {
+            SqlCommand cmm = new SqlCommand();
+            cmm.Connection = cnn;
+            cnn.Open();
+            SqlTransaction mt = cnn.BeginTransaction();
+            cmm.Transaction = mt;
+
+            try
+            {
+
+
+
+
+
+                // Atualiza tabela de pedido de consulta
+                cmm.CommandText = "UPDATE pedido_consulta" +
+                        " SET status = @status " +
+                        " WHERE  cod_pedido = @cod_ped";
+                cmm.Parameters.Add(new SqlParameter("@cod_ped", _idPedido));
+                cmm.Parameters.Add(new SqlParameter("@status", _status));
+                cmm.ExecuteNonQuery();
+
+                mt.Commit();
+                mt.Dispose();
+                cnn.Close();
+
+                LogDAO.gravaLog("DELETE: CÓDIGO PEDIDO " + _idPedido, "CAMPO STATUS", usuario);
+                msg = "Cadastro realizado com sucesso!";
+
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+                msg = error;
+                try
+                {
+                    mt.Rollback();
+                }
+                catch (Exception ex1)
+                { }
+            }
+        }
+
+
     }
 
 }
