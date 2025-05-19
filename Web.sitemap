@@ -6,7 +6,7 @@
       
       <siteMapNode url="~/Restrito/UsuariosOnLine.aspx" title="Usuários Online" description="Usuários Online" />
 
-      <siteMapNode url="~/Restrito/CadastroUsuario.aspx" title="Cadastro Usuário" description="Cadastro de novos usuários do sistema" />
+      <siteMapNode url="~/Restrito/CadastroDeUsuario.aspx" title="Cadastro Usuário" description="Cadastro de novos usuários do sistema" />
       <siteMapNode url="~/Restrito/Permissao.aspx" title="Permissões" description="Cadastro de permissões para usuários do sistema" />
       <siteMapNode url="~/Restrito/DesbloqueioUsuario.aspx" title="Desbloquear Usuário" description="Página para desbloquear de Usuário" />
       <siteMapNode url="~/Restrito/ResetSenha.aspx" title="Resetar Senha" description="Resetar Senha do Usuário" />
